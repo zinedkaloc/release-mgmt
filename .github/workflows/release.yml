@@ -29,12 +29,9 @@ jobs:
 
       - name: Generate changelog
         id: changelog
-        uses: github-changelog-generator/github-changelog-generator@master
+        uses: TriPSs/conventional-changelog-action@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          repo: ${{ github.event.repository.name }}
-          user: ${{ github.repository_owner }}
-          future-release: ${{ github.ref }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Update version and changelog
         run: |
