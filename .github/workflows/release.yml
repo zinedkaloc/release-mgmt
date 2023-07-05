@@ -33,13 +33,19 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Update version and changelog
+      - name: Update changelog
         run: |
-          npm version patch -m "chore(release): %s [skip ci]"
           echo "CHANGELOG:\n${{ steps.changelog.outputs.changelog }}" >> CHANGELOG.md
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git commit -am "Update CHANGELOG.md and package.json version [skip ci]"
+          git commit -am "Update CHANGELOG.md [skip ci]"
+
+      - name: Update version
+        run: |
+          npm version patch -m "chore(release): %s [skip ci]"
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -am "Update package.json version [skip ci]"
 
       - name: Push changes
         uses: ad-m/github-push-action@master
